@@ -6,7 +6,7 @@
     <xacro:property name="laser_scan_height" value="0.07"/>
     <xacro:property name="laser_scan_mass" value="0.13" />
 
-    <xacro:macro name="laser_scanner" params="name parent xyz">
+    <xacro:macro name="laser_scanner" params="name parent xyz robot_name">
         <link name="${name}">
             <visual>
                 <geometry>
@@ -78,10 +78,11 @@
                 </ray>
                 <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
                     <ros>
+                        <namespace>${robot_name}</namespace>
                         <remapping>~/out:=scan</remapping>
                     </ros>
                     <output_type>sensor_msgs/LaserScan</output_type>
-                    <frame_name>${name}_frame</frame_name>
+                    <frame_name>${robot_name}/${name}_frame</frame_name>
                 </plugin>
             </sensor>
 	    </gazebo>
